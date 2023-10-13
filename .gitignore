@@ -1,0 +1,32 @@
+# Logs
+logs
+*.log*
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+dist
+
+# Dependency directories
+node_modules
+
+# Test output
+tests
+
+# Documentation
+doc
+
+# Docker build
+build
+.dockerignore
+Vagrantfile
+
+# MAC
+.DS_Store
+
+# App-specific
+
+# ESLINT
+.eslintignore
+.eslintrc
+.prettierrc
+
+.vscode
