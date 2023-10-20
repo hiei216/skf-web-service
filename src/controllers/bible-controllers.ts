@@ -3,28 +3,32 @@ import { RequestHandler } from "express";
 import mongoose from "mongoose";
 
 export const createVerses: RequestHandler = async (req, res, next) => {
-//   const createdVerse = new Verse({
-//     createdAt: new Date(),
-//     participants: [
-//       {
-//         firstName: "Jirko",
-//         lastName: "Dvorak",
-//         email: "jiri.dvorak@gmx.de",
-//         verse: "This is an cool bible verse!!",
-//       },
-//     ],
-//   });
+  const verses: any = [];
 
+  try {
+    const createdVerse = {
+      createdAt: new Date(),
+      participants: [
+        {
+          firstName: "Anton",
+          lastName: "Anton",
+          email: "jiri.dvorak@gmx.de",
+          verse: "This is an cool bible verse!!",
+        },
+        {
+          firstName: "Anton",
+          lastName: "Anton",
+          email: "jiri.dvorak@gmx.de",
+          verse: "This is an cool bible verse!!",
+        },
+      ],
+    };
+    await Verse.create(createdVerse);
+    verses.push(createdVerse);
+  } catch (err) {
+    console.log("err", err);
+    return next(err);
+  }
 
-//   try {
-//     const sess = await mongoose.startSession();
-//     sess.startTransaction();
-//     await createdVerse.save({ session: sess });
-//     await sess.commitTransaction();
-//   } catch (err) {
-//     console.log('err', err)
-//     return next(err);
-//   }
-
-  res.status(201).json({ verses: 'no verses' });
+  res.status(201).json({ verses });
 };
