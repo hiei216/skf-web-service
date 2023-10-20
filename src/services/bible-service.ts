@@ -1,3 +1,8 @@
+const getEnglishBibleVerseAbbreviation = {
+  'Hebr': 'HEB',
+  'Rim': 'ROM',
+};
+
 const url: string =
   "https://api.scripture.api.bible/v1/bibles/c61908161b077c4c-01/verses/";
 interface IAPIOptions {

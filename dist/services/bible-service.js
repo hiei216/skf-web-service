@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBibleVerse = void 0;
+const getEnglishBibleVerseAbbreviation = {
+    'Hebr': 'HEB',
+    'Rim': 'ROM',
+};
 const url = "https://api.scripture.api.bible/v1/bibles/c61908161b077c4c-01/verses/";
 const options = {
     method: "GET",

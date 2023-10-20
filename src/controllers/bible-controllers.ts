@@ -1,6 +1,5 @@
 import Verse from "../models/verse";
 import { RequestHandler } from "express";
-import mongoose from "mongoose";
 
 export const createVerses: RequestHandler = async (req, res, next) => {
   const verses: any = [];
