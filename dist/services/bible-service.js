@@ -1,27 +1,78 @@
 "use strict";
+// const getEnglishBibleVerseAbbreviationForBibleApi = {
+//   'Hebr': 'HEB',
+//   'Rim': 'ROM',
+// };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getBibleVerse = void 0;
-const getEnglishBibleVerseAbbreviation = {
-    'Hebr': 'HEB',
-    'Rim': 'ROM',
+exports.getBibleVerseFromBibleSk = void 0;
+const getBibleVerseAbbreviation = {
+    Hebr: "heb",
+    Rim: "rim",
+    Sk: 'sk',
 };
-const url = "https://api.scripture.api.bible/v1/bibles/c61908161b077c4c-01/verses/";
+// const options: IAPIOptions = {
+//   method: "GET",
+//   headers: {
+//     "api-key": "84acb414d4c69514fd7fc7002f5d4db6",
+//   },
+// };
 const options = {
     method: "GET",
-    headers: {
-        "api-key": "84acb414d4c69514fd7fc7002f5d4db6",
-    },
 };
-const getBibleVerse = async (bibleVerse) => {
+// export const getBibleVerseFromBibleApi = async (bibleVerse: string) => {
+//   try {
+//     const response = await fetch(`${url}${bibleVerse}`, options);
+//     const data = await response.json();
+//     return data ?? {};
+//   } catch (error) {
+//     console.error("Error:", error);
+//     return {};
+//   }
+// };
+const getBibleBookAndChapter = (bibleVerse) => {
+    const indexOfWhitespace = bibleVerse.indexOf(" ");
+    const indexOfComma = bibleVerse.indexOf(",");
+    const book = bibleVerse.slice(0, indexOfWhitespace);
+    const chapter = bibleVerse.slice(indexOfWhitespace + 1, indexOfComma);
+    const verses = bibleVerse.slice(indexOfComma + 1);
+    const indexOfHyphen = verses.indexOf("-");
+    const startVerse = indexOfHyphen === -1 ? verses.slice(0) : verses.slice(0, indexOfHyphen);
+    const endVerse = indexOfHyphen === -1 ? verses.slice(0) : verses.slice(indexOfHyphen + 1);
+    return {
+        book: getBibleVerseAbbreviation[book],
+        chapter,
+        verses: {
+            start: startVerse,
+            end: endVerse,
+        },
+    };
+};
+const getBibleVerseFromBibleSk = async (bibleVerse) => {
+    const verseData = getBibleBookAndChapter(bibleVerse);
     try {
-        const response = await fetch(`${url}${bibleVerse}`, options);
+        const response = await fetch(`https://biblia.sk/api/chapter?translation=ssv&book=${verseData.book}&chapter=${verseData.chapter}`, options);
         const data = await response.json();
-        return data ?? {};
+        const verseList = data.data;
+        const concreteVerses = [];
+        if (verseList.length === 0) {
+            return {};
+        }
+        for (let i = +verseData.verses.start + 1; i < +verseData.verses.end + 2; i++) {
+            concreteVerses.push(verseList[i].content);
+        }
+        return {
+            bookName: verseList[0].book_object.name,
+            chapter: verseData.chapter,
+            verseNumber: verseData.verses.start === verseData.verses.end
+                ? verseData.verses.start
+                : `${verseData.verses.start}-${verseData.verses.end}`,
+            verses: concreteVerses,
+        };
     }
     catch (error) {
         console.error("Error:", error);
         return {};
     }
 };
-exports.getBibleVerse = getBibleVerse;
+exports.getBibleVerseFromBibleSk = getBibleVerseFromBibleSk;
 //# sourceMappingURL=bible-service.js.map

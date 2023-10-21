@@ -4,13 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-// import taskRoutes from './routes/tasks';
 const bible_1 = __importDefault(require("./routes/bible"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8081;
 app.use(express_1.default.json()); // Add this line to enable JSON parsing in the request body
-// app.use('/tasks', taskRoutes); // Add this line to mount the Task API routes
 app.use("/bible", bible_1.default);
 app.get("/", (req, res) => {
     res.send("Hello, TypeScript Express!");

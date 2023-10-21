@@ -3,36 +3,59 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createVerses = void 0;
+exports.getTodaysVerses = exports.createVerses = void 0;
+const bible_service_1 = require("../services/bible-service");
 const verse_1 = __importDefault(require("../models/verse"));
+const example_verses_service_1 = require("../services/example-verses-service");
+const random_number_service_1 = require("../services/random-number-service");
 const createVerses = async (req, res, next) => {
-    const verses = [];
-    try {
-        const createdVerse = {
-            createdAt: new Date(),
-            participants: [
-                {
-                    firstName: "Anton",
-                    lastName: "Anton",
-                    email: "jiri.dvorak@gmx.de",
-                    verse: "This is an cool bible verse!!",
-                },
-                {
-                    firstName: "Anton",
-                    lastName: "Anton",
-                    email: "jiri.dvorak@gmx.de",
-                    verse: "This is an cool bible verse!!",
-                },
-            ],
-        };
-        await verse_1.default.create(createdVerse);
-        verses.push(createdVerse);
+    const participants = req.body.participants;
+    const readyParticipants = [];
+    for (const { firstName, lastName, email } of participants) {
+        const randomNumber = (0, random_number_service_1.getRandomNumber)(example_verses_service_1.EXAMPLE_VERSES.length);
+        try {
+            const bibleVerseEntry = await (0, bible_service_1.getBibleVerseFromBibleSk)(example_verses_service_1.EXAMPLE_VERSES[randomNumber]);
+            readyParticipants.push({
+                firstName,
+                lastName,
+                email,
+                verseData: bibleVerseEntry,
+            });
+        }
+        catch (err) {
+            console.log("err", err);
+            return next(err);
+        }
     }
-    catch (err) {
-        console.log("err", err);
-        return next(err);
-    }
-    res.status(201).json({ verses });
+    await verse_1.default.create({
+        createdAt: new Date(),
+        participants: readyParticipants,
+    });
+    res.status(201).json({
+        createdAt: new Date(),
+        participants: readyParticipants,
+    });
 };
 exports.createVerses = createVerses;
+const getTodaysVerses = async (req, res, next) => {
+    const startToday = new Date();
+    startToday.setHours(0, 0, 0, 0);
+    const endToday = new Date();
+    endToday.setHours(23, 59, 59, 999);
+    const foundVerses = [];
+    try {
+        const verses = await verse_1.default.find({
+            createdAt: { $gt: startToday, $lt: endToday },
+        });
+        foundVerses.push(verses);
+    }
+    catch (err) {
+        return next(err);
+    }
+    if (!foundVerses) {
+        res.status(200).write("No data found");
+    }
+    res.status(201).json({ foundVerses });
+};
+exports.getTodaysVerses = getTodaysVerses;
 //# sourceMappingURL=bible-controllers.js.map
