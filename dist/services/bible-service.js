@@ -6,9 +6,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBibleVerseFromBibleSk = void 0;
 const getBibleVerseAbbreviation = {
+    Gn: "gn",
+    Ex: "ex",
+    Lv: "lv",
+    Num: "nm",
+    Dt: "dt",
+    Jz: "joz",
+    Sdc: 'sdc',
+    Rut: 'rut',
+    ['1 Sam']: '1sam',
+    ['2 Sam']: '2sam',
+    ['1 Krl']: '1krl',
+    ['2 Krl']: '2krl',
+    ['1 Krn']: '1krn',
+    ['2 Krn']: '2krn',
     Hebr: "heb",
     Rim: "rim",
-    Sk: 'sk',
+    Sk: "sk",
+    Zj: "zj",
 };
 // const options: IAPIOptions = {
 //   method: "GET",
