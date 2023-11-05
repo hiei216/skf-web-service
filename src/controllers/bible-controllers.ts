@@ -1,5 +1,6 @@
 import { getBibleVerseFromBibleSk } from "../services/bible-service";
 import Verse from "../models/verse";
+import Participant from "../models/participant";
 import { RequestHandler } from "express";
 import { EXAMPLE_VERSES } from "../services/example-verses-service";
 import { getRandomNumber } from "../services/random-number-service";
@@ -60,4 +61,51 @@ export const getTodaysVerses: RequestHandler = async (req, res, next) => {
   }
 
   res.status(201).json({ foundVerses });
+};
+
+export const getSavedParticipants: RequestHandler = async (req, res, next) => {
+  const foundParticipants: any = [];
+
+  try {
+    const participants = await Participant.find();
+    foundParticipants.push(participants);
+  } catch (err) {
+    return next(err);
+  }
+
+  if (!foundParticipants) {
+    res.status(200).write("No data found");
+  }
+
+  res.status(201).json({ foundParticipants });
+};
+
+export const createParticipant: RequestHandler = async (req, res, next) => {
+  const { firstName, lastName, email } = req.body.participant;
+
+  try {
+    await Participant.create({
+      createdAt: new Date(),
+      firstName,
+      lastName,
+      email,
+    });
+  } catch (err) {
+    console.log("err", err);
+    return next(err);
+  }
+
+  const foundParticipant = await Participant.find({
+    firstName,
+    lastName,
+    email,
+  });
+
+  if (foundParticipant) {
+    res.status(201).json({
+      foundParticipant,
+    });
+  }
+
+  res.status(400).json({});
 };

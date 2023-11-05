@@ -19,7 +19,8 @@ app.use((err, req, res, next) => {
     res.status(500).send("Something went wrong");
 });
 mongoose_1.default
-    .connect(process.env.MONGO_LOGIN)
+    // .connect(process.env.MONGO_LOGIN)
+    .connect('mongodb+srv://jiridvorak:u6HxWCOVRCsAy358@cluster0.xms1v8x.mongodb.net/skf-web-database?retryWrites=true&w=majority')
     .then(() => {
     app.listen(port, () => {
         console.log(`server running : http://localhost:8081`);

@@ -5,5 +5,7 @@ const bible_controllers_1 = require("../controllers/bible-controllers");
 const router = (0, express_1.Router)();
 router.post("/create-verses", bible_controllers_1.createVerses);
 router.get("/get-todays-verses", bible_controllers_1.getTodaysVerses);
+router.get("/get-saved-participants", bible_controllers_1.getSavedParticipants);
+router.post("/create-participant", bible_controllers_1.createParticipant);
 exports.default = router;
 //# sourceMappingURL=bible.js.map

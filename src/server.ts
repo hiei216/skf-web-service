@@ -20,7 +20,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 mongoose
-  .connect(process.env.MONGO_LOGIN)
+  // .connect(process.env.MONGO_LOGIN)
+  .connect('mongodb+srv://jiridvorak:u6HxWCOVRCsAy358@cluster0.xms1v8x.mongodb.net/skf-web-database?retryWrites=true&w=majority')
   .then(() => {
     app.listen(port, () => {
       console.log(`server running : http://localhost:8081`);
