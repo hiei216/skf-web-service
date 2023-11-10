@@ -63,7 +63,7 @@ const getSavedParticipants = async (req, res, next) => {
     const foundParticipants = [];
     try {
         const participants = await participant_1.default.find();
-        foundParticipants.push(participants);
+        foundParticipants.push(...participants);
     }
     catch (err) {
         return next(err);

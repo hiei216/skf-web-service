@@ -68,7 +68,7 @@ export const getSavedParticipants: RequestHandler = async (req, res, next) => {
 
   try {
     const participants = await Participant.find();
-    foundParticipants.push(participants);
+    foundParticipants.push(...participants);
   } catch (err) {
     return next(err);
   }
