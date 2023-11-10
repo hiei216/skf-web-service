@@ -77,7 +77,7 @@ export const getSavedParticipants: RequestHandler = async (req, res, next) => {
     res.status(200).write("No data found");
   }
 
-  res.status(201).json({ ...foundParticipants });
+  res.status(201).json({ participants: foundParticipants });
 };
 
 export const createParticipant: RequestHandler = async (req, res, next) => {
