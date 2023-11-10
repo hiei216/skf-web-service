@@ -71,7 +71,7 @@ const getSavedParticipants = async (req, res, next) => {
     if (!foundParticipants) {
         res.status(200).write("No data found");
     }
-    res.status(201).json({ foundParticipants });
+    res.status(201).json({ ...foundParticipants });
 };
 exports.getSavedParticipants = getSavedParticipants;
 const createParticipant = async (req, res, next) => {
