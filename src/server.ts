@@ -8,12 +8,7 @@ const app = express();
 const port = process.env.PORT || 8081;
 
 app.use(express.json()); // Add this line to enable JSON parsing in the request body
-// app.use(cors());
-
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+app.use(cors());
 
 app.use("/bible", bibleRoutes);
 
