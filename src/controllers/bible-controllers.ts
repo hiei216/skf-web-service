@@ -24,7 +24,6 @@ export const createVerses: RequestHandler = async (req, res, next) => {
       });
     } catch (err) {
       console.log("err", err);
-      return next(err);
     }
   }
 
@@ -53,7 +52,7 @@ export const getTodaysVerses: RequestHandler = async (req, res, next) => {
     });
     foundVerses.push(verses);
   } catch (err) {
-    return next(err);
+    console.log("err", err);
   }
 
   if (!foundVerses) {
@@ -70,7 +69,7 @@ export const getSavedParticipants: RequestHandler = async (req, res, next) => {
     const participants = await Participant.find();
     foundParticipants.push(...participants);
   } catch (err) {
-    return next(err);
+    console.log("err", err);
   }
 
   if (!foundParticipants) {
@@ -92,7 +91,6 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
     });
   } catch (err) {
     console.log("err", err);
-    return next(err);
   }
 
   const foundParticipant = await Participant.find({

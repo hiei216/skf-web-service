@@ -25,7 +25,6 @@ const createVerses = async (req, res, next) => {
         }
         catch (err) {
             console.log("err", err);
-            return next(err);
         }
     }
     await verse_1.default.create({
@@ -51,7 +50,7 @@ const getTodaysVerses = async (req, res, next) => {
         foundVerses.push(verses);
     }
     catch (err) {
-        return next(err);
+        console.log("err", err);
     }
     if (!foundVerses) {
         res.status(200).write("No data found");
@@ -66,7 +65,7 @@ const getSavedParticipants = async (req, res, next) => {
         foundParticipants.push(...participants);
     }
     catch (err) {
-        return next(err);
+        console.log("err", err);
     }
     if (!foundParticipants) {
         res.status(200).write("No data found");
@@ -86,7 +85,6 @@ const createParticipant = async (req, res, next) => {
     }
     catch (err) {
         console.log("err", err);
-        return next(err);
     }
     const foundParticipant = await participant_1.default.find({
         firstName,
