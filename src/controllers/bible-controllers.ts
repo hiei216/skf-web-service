@@ -50,7 +50,7 @@ export const getTodaysVerses: RequestHandler = async (req, res, next) => {
     const verses = await Verse.find({
       createdAt: { $gt: startToday, $lt: endToday },
     });
-    foundVerses.push(verses);
+    foundVerses.push(...verses);
   } catch (err) {
     console.log("err", err);
   }
@@ -82,8 +82,29 @@ export const getSavedParticipants: RequestHandler = async (req, res, next) => {
 export const createParticipant: RequestHandler = async (req, res, next) => {
   const { firstName, lastName, email } = req.body.participant;
 
+  const foundParticipant = await Participant.find({
+    firstName,
+    lastName,
+    email,
+  });
+
+  const createdParticipant = [];
+
+  if (foundParticipant) {
+    res.status(400).json({
+      message: 'Participant was already found in database',
+      data: foundParticipant,
+    });
+  }
+
   try {
     await Participant.create({
+      createdAt: new Date(),
+      firstName,
+      lastName,
+      email,
+    });
+    createdParticipant.push({
       createdAt: new Date(),
       firstName,
       lastName,
@@ -93,17 +114,8 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
     console.log("err", err);
   }
 
-  const foundParticipant = await Participant.find({
-    firstName,
-    lastName,
-    email,
+  res.status(201).json({
+    message: 'Participant was succesfully created',
+      data: createdParticipant,
   });
-
-  if (foundParticipant) {
-    res.status(201).json({
-      foundParticipant,
-    });
-  }
-
-  res.status(400).json({});
 };
