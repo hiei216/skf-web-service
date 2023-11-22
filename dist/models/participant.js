@@ -11,5 +11,6 @@ const ParticipantSchema = new Schema({
     lastName: String,
     email: String,
 });
+ParticipantSchema.index({ firstName: 1, lastName: 1, email: 1 }, { unique: true });
 exports.default = mongoose_1.default.model("Participant", ParticipantSchema);
 //# sourceMappingURL=participant.js.map

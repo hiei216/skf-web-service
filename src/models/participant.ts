@@ -9,4 +9,6 @@ const ParticipantSchema = new Schema({
   email: String,
 });
 
+ParticipantSchema.index({ firstName: 1, lastName: 1, email: 1 }, { unique: true});
+
 export default mongoose.model("Participant", ParticipantSchema);
