@@ -81,7 +81,7 @@ const createParticipant = async (req, res, next) => {
         email,
     });
     const createdParticipant = [];
-    if (foundParticipant) {
+    if (foundParticipant.length > 0) {
         res.status(400).json({
             message: 'Participant was already found in database',
             data: foundParticipant,

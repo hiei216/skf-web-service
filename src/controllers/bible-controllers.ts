@@ -90,7 +90,7 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
 
   const createdParticipant = [];
 
-  if (foundParticipant) {
+  if (foundParticipant.length > 0) {
     res.status(400).json({
       message: 'Participant was already found in database',
       data: foundParticipant,
