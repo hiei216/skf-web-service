@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createParticipant = exports.getSavedParticipants = exports.getTodaysVerses = exports.createVerses = void 0;
+exports.createParticipant = exports.getSavedParticipants = exports.getFilteredVerses = exports.getTodaysVerses = exports.createVerses = void 0;
 const bible_service_1 = require("../services/bible-service");
 const verse_1 = __importDefault(require("../models/verse"));
 const participant_1 = __importDefault(require("../models/participant"));
@@ -58,6 +58,30 @@ const getTodaysVerses = async (req, res, next) => {
     res.status(201).json({ foundVerses });
 };
 exports.getTodaysVerses = getTodaysVerses;
+const getFilteredVerses = async (req, res, next) => {
+    const { firstName, lastName, startDate, endDate } = req.body.filter;
+    const start = new Date(startDate);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(23, 59, 59, 999);
+    const foundVerses = [];
+    try {
+        const verses = await verse_1.default.find({
+            createdAt: { $gt: start, $lt: end },
+            firstName,
+            lastName,
+        });
+        foundVerses.push(...verses);
+    }
+    catch (err) {
+        console.log("err", err);
+    }
+    if (!foundVerses) {
+        res.status(200).write("No data found");
+    }
+    res.status(201).json({ foundVerses });
+};
+exports.getFilteredVerses = getFilteredVerses;
 const getSavedParticipants = async (req, res, next) => {
     const foundParticipants = [];
     try {

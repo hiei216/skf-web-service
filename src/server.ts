@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import bibleRoutes from "./routes/bible";
+import emailRoutes from "./routes/email";
 import mongoose from "mongoose";
 import cors from "cors";
 
@@ -11,6 +12,7 @@ app.use(express.json()); // Add this line to enable JSON parsing in the request 
 app.use(cors());
 
 app.use("/bible", bibleRoutes);
+app.use("/email", emailRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript Express!");
@@ -33,6 +35,3 @@ mongoose
     console.log(err);
   });
 // // start the server
-// app.listen(port, () => {
-//   console.log(`server running : http://localhost:8081`);
-// });

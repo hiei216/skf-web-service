@@ -62,6 +62,34 @@ export const getTodaysVerses: RequestHandler = async (req, res, next) => {
   res.status(201).json({ foundVerses });
 };
 
+export const getFilteredVerses: RequestHandler = async (req, res, next) => {
+  const { firstName, lastName, startDate, endDate } = req.body.filter;
+
+  const start = new Date(startDate);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(endDate);
+  end.setHours(23, 59, 59, 999);
+
+  const foundVerses: any = [];
+
+  try {
+    const verses = await Verse.find({
+      createdAt: { $gt: start, $lt: end },
+      firstName,
+      lastName,
+    });
+    foundVerses.push(...verses);
+  } catch (err) {
+    console.log("err", err);
+  }
+
+  if (!foundVerses) {
+    res.status(200).write("No data found");
+  }
+
+  res.status(201).json({ foundVerses });
+};
+
 export const getSavedParticipants: RequestHandler = async (req, res, next) => {
   const foundParticipants: any = [];
 
