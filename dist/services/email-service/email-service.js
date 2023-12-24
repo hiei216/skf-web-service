@@ -25,7 +25,7 @@ const sendEmail = () => {
     const mailOptions = ENVIRONMENT === "production"
         ? {
             from: "hiei216@gmail.com",
-            to: "jiri.dvorak@gmx.com",
+            to: "jiri.dvorak@gmx.de",
             subject: "Sending Email using Node.js",
             text: "That was easy!",
         }
