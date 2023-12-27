@@ -1,13 +1,13 @@
 import { RequestHandler } from "express";
 
 import { sendEmail } from "../services/email-service/email-service";
+import { testTemplate } from "../services/email-service/templates/test";
 
-export const sendTemplateEmail: RequestHandler = async (req, res, next) => {
-//   const participants = req.body.participants;
-//   const readyParticipants: any = [];
+export const sendTemplateEmail: RequestHandler = (req, res, next) => {
+  const { data } = req.body.email;
 
   try {
-    sendEmail();
+    sendEmail(testTemplate, data);
   } catch (err) {
     console.log("err", err);
   }

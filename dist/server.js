@@ -10,6 +10,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const port = process.env.PORT || 8081;
+const environment = process.env.ENVIRONMENT || "localhost";
 app.use(express_1.default.json()); // Add this line to enable JSON parsing in the request body
 app.use((0, cors_1.default)());
 app.use("/bible", bible_1.default);
@@ -22,15 +23,21 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send("Something went wrong");
 });
-mongoose_1.default
-    .connect(process.env.MONGO_LOGIN)
-    .then(() => {
+if (environment === "production") {
+    mongoose_1.default
+        .connect(process.env.MONGO_LOGIN)
+        .then(() => {
+        app.listen(port, () => {
+            console.log(`server running : http://localhost:8081`);
+        });
+    })
+        .catch((err) => {
+        console.log(err);
+    });
+}
+else {
     app.listen(port, () => {
         console.log(`server running : http://localhost:8081`);
     });
-})
-    .catch((err) => {
-    console.log(err);
-});
-// // start the server
+}
 //# sourceMappingURL=server.js.map

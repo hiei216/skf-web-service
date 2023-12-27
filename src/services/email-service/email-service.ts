@@ -1,8 +1,13 @@
 import nodemailer from "nodemailer";
+import mustache from "mustache";
+import mjml from "mjml";
 
-const ENVIRONMENT = process.env.ENVIRONMENT || 'localhost';
+const ENVIRONMENT = process.env.ENVIRONMENT || "localhost";
 
-export const sendEmail = () => {
+export const sendEmail = (mjmlTemplate: any, templateData: any) => {
+  const renderedMJML = mustache.render(mjmlTemplate, templateData);
+  const html = mjml(renderedMJML).html;
+
   const transporter =
     ENVIRONMENT === "production"
       ? nodemailer.createTransport({
@@ -32,7 +37,7 @@ export const sendEmail = () => {
           from: "mailhog@mailhog.com",
           to: "jiri.dvorak@gmx.com",
           subject: "Sending Email using Node.js",
-          text: "That was easy!",
+          html,
         };
 
   transporter.sendMail(mailOptions, (error, info) => {

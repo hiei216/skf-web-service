@@ -5,8 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendEmail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const ENVIRONMENT = process.env.ENVIRONMENT || 'localhost';
-const sendEmail = () => {
+const mustache_1 = __importDefault(require("mustache"));
+const mjml_1 = __importDefault(require("mjml"));
+const ENVIRONMENT = process.env.ENVIRONMENT || "localhost";
+const sendEmail = (mjmlTemplate, templateData) => {
+    const renderedMJML = mustache_1.default.render(mjmlTemplate, templateData);
+    const html = (0, mjml_1.default)(renderedMJML).html;
     const transporter = ENVIRONMENT === "production"
         ? nodemailer_1.default.createTransport({
             service: "gmail",
@@ -33,7 +37,7 @@ const sendEmail = () => {
             from: "mailhog@mailhog.com",
             to: "jiri.dvorak@gmx.com",
             subject: "Sending Email using Node.js",
-            text: "That was easy!",
+            html,
         };
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
