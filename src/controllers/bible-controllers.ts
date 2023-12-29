@@ -63,21 +63,27 @@ export const getTodaysVerses: RequestHandler = async (req, res, next) => {
 };
 
 export const getFilteredVerses: RequestHandler = async (req, res, next) => {
-  const { firstName, lastName, startDate, endDate } = req.body.filter;
+  const { firstName, lastName, startDate, endDate } = req.query;
 
-  const start = new Date(startDate);
+  const start = new Date(startDate ? startDate.toString() : "");
   start.setHours(0, 0, 0, 0);
-  const end = new Date(endDate);
+  const end = new Date(endDate ? endDate.toString() : "");
   end.setHours(23, 59, 59, 999);
 
   const foundVerses: any = [];
 
   try {
     const verses = await Verse.find({
-      createdAt: { $gt: start, $lt: end },
-      firstName,
-      lastName,
+      ...(startDate ? { createdAt: { $gt: start } } : {}),
+      ...(endDate ? { createdAt: { $lt: end } } : {}),
+      participants: {
+        $elemMatch: {
+          ...(lastName ? { lastName } : {}),
+          ...(firstName ? { firstName } : {}),
+        },
+      },
     });
+
     foundVerses.push(...verses);
   } catch (err) {
     console.log("err", err);
@@ -120,7 +126,7 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
 
   if (foundParticipant.length > 0) {
     res.status(400).json({
-      message: 'Participant was already found in database',
+      message: "Participant was already found in database",
       data: foundParticipant,
     });
   }
@@ -143,7 +149,7 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
   }
 
   res.status(201).json({
-    message: 'Participant was succesfully created',
-      data: createdParticipant,
+    message: "Participant was succesfully created",
+    data: createdParticipant,
   });
 };

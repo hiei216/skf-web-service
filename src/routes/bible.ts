@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/create-verses", createVerses);
 router.get("/get-todays-verses", getTodaysVerses);
-router.post("/get-filtered-verses", getFilteredVerses);
+router.get("/get-filtered-verses", getFilteredVerses);
 router.get("/get-saved-participants", getSavedParticipants);
 router.post("/create-participant", createParticipant);
 
