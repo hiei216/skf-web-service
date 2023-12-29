@@ -3,11 +3,12 @@ import bibleRoutes from "./routes/bible";
 import emailRoutes from "./routes/email";
 import mongoose from "mongoose";
 import cors from "cors";
+import 'dotenv/config';
 
 const app = express();
 
 const port = process.env.PORT || 8081;
-const environment = process.env.ENVIRONMENT || "localhost";
+const environment = process.env.NODE_ENV || "localhost";
 
 app.use(express.json()); // Add this line to enable JSON parsing in the request body
 app.use(cors());
@@ -25,19 +26,19 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(500).send("Something went wrong");
 });
 
-if (environment === "production") {
-  mongoose
-    .connect(process.env.MONGO_LOGIN)
-    .then(() => {
-      app.listen(port, () => {
-        console.log(`server running : http://localhost:8081`);
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+// if (environment === "production") {
+mongoose
+  .connect(process.env.MONGO_LOGIN)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`server running : http://localhost:8081`);
     });
-} else {
-  app.listen(port, () => {
-    console.log(`server running : http://localhost:8081`);
+  })
+  .catch((err) => {
+    console.log(err);
   });
-}
+// } else {
+//   app.listen(port, () => {
+//     console.log(`server running : http://localhost:8081`);
+//   });
+// }

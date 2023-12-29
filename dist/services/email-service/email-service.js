@@ -7,7 +7,7 @@ exports.sendEmail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const mustache_1 = __importDefault(require("mustache"));
 const mjml_1 = __importDefault(require("mjml"));
-const ENVIRONMENT = process.env.ENVIRONMENT || "localhost";
+const ENVIRONMENT = process.env.NODE_ENV || "localhost";
 const sendEmail = (mjmlTemplate, templateData) => {
     const renderedMJML = mustache_1.default.render(mjmlTemplate, templateData);
     const html = (0, mjml_1.default)(renderedMJML).html;

@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import mustache from "mustache";
 import mjml from "mjml";
 
-const ENVIRONMENT = process.env.ENVIRONMENT || "localhost";
+const ENVIRONMENT = process.env.NODE_ENV || "localhost";
 
 export const sendEmail = (mjmlTemplate: any, templateData: any) => {
   const renderedMJML = mustache.render(mjmlTemplate, templateData);
