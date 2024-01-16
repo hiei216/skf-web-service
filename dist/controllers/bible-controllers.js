@@ -76,7 +76,15 @@ const getFilteredVerses = async (req, res, next) => {
                 },
             },
         });
-        foundVerses.push(...verses);
+        const cleanedVerses = verses.map((verse) => {
+            const participants = verse.participants.filter((element) => element.firstName === firstName && element.lastName === lastName);
+            return {
+                _id: verse.id,
+                createdAt: verse.createdAt,
+                participants,
+            };
+        });
+        foundVerses.push(...cleanedVerses);
     }
     catch (err) {
         console.log("err", err);
