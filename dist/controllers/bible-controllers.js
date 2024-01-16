@@ -84,7 +84,8 @@ const getFilteredVerses = async (req, res, next) => {
                 participants,
             };
         });
-        foundVerses.push(...cleanedVerses);
+        const resultVerse = lastName || firstName ? cleanedVerses : verses;
+        foundVerses.push(...resultVerse);
     }
     catch (err) {
         console.log("err", err);
