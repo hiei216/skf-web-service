@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import bibleRoutes from "./routes/bible";
+import participantRoutes from "./routes/participant";
 import emailRoutes from "./routes/email";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -13,6 +14,7 @@ app.use(express.json()); // Add this line to enable JSON parsing in the request 
 app.use(cors());
 
 app.use("/bible", bibleRoutes);
+app.use("/participant", participantRoutes);
 app.use("/email", emailRoutes);
 
 app.get("/", (req: Request, res: Response) => {

@@ -1,12 +1,10 @@
 import { Router } from "express";
-import { createVerses, getTodaysVerses, getFilteredVerses, getSavedParticipants, createParticipant } from '../controllers/bible-controllers';
+import bibleControllers  from '../controllers/bible-controllers/index';
 
 const router = Router();
 
-router.post("/create-verses", createVerses);
-router.get("/get-todays-verses", getTodaysVerses);
-router.get("/get-filtered-verses", getFilteredVerses);
-router.get("/get-saved-participants", getSavedParticipants);
-router.post("/create-participant", createParticipant);
+router.post("/create-verses", bibleControllers.createVerses);
+router.get("/get-todays-verses", bibleControllers.getTodaysVerses);
+router.get("/get-filtered-verses", bibleControllers.getFilteredVerses);
 
 export default router;

@@ -4,10 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_1 = __importDefault(require("../controllers/bible-controllers/index"));
+const index_1 = __importDefault(require("../controllers/participant-controllers/index"));
 const router = (0, express_1.Router)();
-router.post("/create-verses", index_1.default.createVerses);
-router.get("/get-todays-verses", index_1.default.getTodaysVerses);
-router.get("/get-filtered-verses", index_1.default.getFilteredVerses);
+router.get("/get-saved-participants", index_1.default.getSavedParticipants);
+router.post("/create-participant", index_1.default.createParticipant);
 exports.default = router;
-//# sourceMappingURL=bible.js.map
+//# sourceMappingURL=participant.js.map
