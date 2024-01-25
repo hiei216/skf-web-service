@@ -6,12 +6,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBibleVerseFromBibleSk = void 0;
 const getBibleVerseAbbreviation = {
-    Gn: "gn",
-    Ex: "ex",
-    Lv: "lv",
-    Num: "nm",
-    Dt: "dt",
-    Jz: "joz",
+    Gn: 'gn',
+    Ex: 'ex',
+    Lv: 'lv',
+    Num: 'nm',
+    Dt: 'dt',
+    Jz: 'joz',
     Sdc: 'sdc',
     Rut: 'rut',
     ['1 Sam']: '1sam',
@@ -20,19 +20,21 @@ const getBibleVerseAbbreviation = {
     ['2 Krl']: '2krl',
     ['1 Krn']: '1krn',
     ['2 Krn']: '2krn',
-    Hebr: "heb",
-    Rim: "rim",
-    Sk: "sk",
-    Zj: "zj",
+    Ezd: 'ezd',
+    Neh: 'neh', // not sure
+    Hebr: 'heb',
+    Rim: 'rim',
+    Sk: 'sk',
+    Zj: 'zj',
 };
 // const options: IAPIOptions = {
 //   method: "GET",
 //   headers: {
-//     "api-key": "84acb414d4c69514fd7fc7002f5d4db6",
+//     "api-key": process.env.BIBLE_API_KEY,
 //   },
 // };
 const options = {
-    method: "GET",
+    method: 'GET',
 };
 // export const getBibleVerseFromBibleApi = async (bibleVerse: string) => {
 //   try {
@@ -45,12 +47,12 @@ const options = {
 //   }
 // };
 const getBibleBookAndChapter = (bibleVerse) => {
-    const indexOfWhitespace = bibleVerse.indexOf(" ");
-    const indexOfComma = bibleVerse.indexOf(",");
+    const indexOfWhitespace = bibleVerse.indexOf(' ');
+    const indexOfComma = bibleVerse.indexOf(',');
     const book = bibleVerse.slice(0, indexOfWhitespace);
     const chapter = bibleVerse.slice(indexOfWhitespace + 1, indexOfComma);
     const verses = bibleVerse.slice(indexOfComma + 1);
-    const indexOfHyphen = verses.indexOf("-");
+    const indexOfHyphen = verses.indexOf('-');
     const startVerse = indexOfHyphen === -1 ? verses.slice(0) : verses.slice(0, indexOfHyphen);
     const endVerse = indexOfHyphen === -1 ? verses.slice(0) : verses.slice(indexOfHyphen + 1);
     return {
@@ -85,7 +87,7 @@ const getBibleVerseFromBibleSk = async (bibleVerse) => {
         };
     }
     catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
         return {};
     }
 };

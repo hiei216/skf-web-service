@@ -4,12 +4,12 @@
 // };
 
 const getBibleVerseAbbreviation: Record<string, string> = {
-  Gn: "gn",
-  Ex: "ex",
-  Lv: "lv",
-  Num: "nm",
-  Dt: "dt",
-  Jz: "joz",
+  Gn: 'gn',
+  Ex: 'ex',
+  Lv: 'lv',
+  Num: 'nm',
+  Dt: 'dt',
+  Jz: 'joz',
   Sdc: 'sdc',
   Rut: 'rut',
   ['1 Sam']: '1sam',
@@ -18,11 +18,13 @@ const getBibleVerseAbbreviation: Record<string, string> = {
   ['2 Krl']: '2krl',
   ['1 Krn']: '1krn',
   ['2 Krn']: '2krn',
+  Ezd: 'ezd',
+  Neh: 'neh', // not sure
 
-  Hebr: "heb",
-  Rim: "rim",
-  Sk: "sk",
-  Zj: "zj",
+  Hebr: 'heb',
+  Rim: 'rim',
+  Sk: 'sk',
+  Zj: 'zj',
 };
 
 // const url: string =
@@ -40,12 +42,12 @@ interface Options {
 // const options: IAPIOptions = {
 //   method: "GET",
 //   headers: {
-//     "api-key": "84acb414d4c69514fd7fc7002f5d4db6",
+//     "api-key": process.env.BIBLE_API_KEY,
 //   },
 // };
 
 const options: Options = {
-  method: "GET",
+  method: 'GET',
 };
 
 // export const getBibleVerseFromBibleApi = async (bibleVerse: string) => {
@@ -61,16 +63,14 @@ const options: Options = {
 // };
 
 const getBibleBookAndChapter = (bibleVerse: string) => {
-  const indexOfWhitespace = bibleVerse.indexOf(" ");
-  const indexOfComma = bibleVerse.indexOf(",");
+  const indexOfWhitespace = bibleVerse.indexOf(' ');
+  const indexOfComma = bibleVerse.indexOf(',');
   const book = bibleVerse.slice(0, indexOfWhitespace);
   const chapter = bibleVerse.slice(indexOfWhitespace + 1, indexOfComma);
   const verses = bibleVerse.slice(indexOfComma + 1);
-  const indexOfHyphen = verses.indexOf("-");
-  const startVerse =
-    indexOfHyphen === -1 ? verses.slice(0) : verses.slice(0, indexOfHyphen);
-  const endVerse =
-    indexOfHyphen === -1 ? verses.slice(0) : verses.slice(indexOfHyphen + 1);
+  const indexOfHyphen = verses.indexOf('-');
+  const startVerse = indexOfHyphen === -1 ? verses.slice(0) : verses.slice(0, indexOfHyphen);
+  const endVerse = indexOfHyphen === -1 ? verses.slice(0) : verses.slice(indexOfHyphen + 1);
 
   return {
     book: getBibleVerseAbbreviation[book],
@@ -89,14 +89,12 @@ type VerseResponse = {
   verses: string[];
 };
 
-export const getBibleVerseFromBibleSk = async (
-  bibleVerse: string
-): Promise<VerseResponse | {}> => {
+export const getBibleVerseFromBibleSk = async (bibleVerse: string): Promise<VerseResponse | {}> => {
   const verseData = getBibleBookAndChapter(bibleVerse);
   try {
     const response = await fetch(
       `https://biblia.sk/api/chapter?translation=ssv&book=${verseData.book}&chapter=${verseData.chapter}`,
-      options
+      options,
     );
 
     const data = await response.json();
@@ -107,11 +105,7 @@ export const getBibleVerseFromBibleSk = async (
       return {};
     }
 
-    for (
-      let i = +verseData.verses.start + 1;
-      i < +verseData.verses.end + 2;
-      i++
-    ) {
+    for (let i = +verseData.verses.start + 1; i < +verseData.verses.end + 2; i++) {
       concreteVerses.push(verseList[i].content);
     }
 
@@ -125,7 +119,7 @@ export const getBibleVerseFromBibleSk = async (
       verses: concreteVerses,
     };
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     return {};
   }
 };
