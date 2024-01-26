@@ -1,19 +1,19 @@
-import nodemailer from "nodemailer";
-import mustache from "mustache";
-import mjml from "mjml";
+import nodemailer from 'nodemailer';
+import mustache from 'mustache';
+import mjml from 'mjml';
 
-const ENVIRONMENT = process.env.NODE_ENV || "localhost";
+const ENVIRONMENT = process.env.NODE_ENV || 'localhost';
 
 export const sendEmail = (mjmlTemplate: any, templateData: any) => {
   const renderedMJML = mustache.render(mjmlTemplate, templateData);
   const html = mjml(renderedMJML).html;
 
   const transporter =
-    ENVIRONMENT === "production"
+    ENVIRONMENT === 'production'
       ? nodemailer.createTransport({
-          service: "gmail",
+          service: 'gmail',
           auth: {
-            user: "hiei216@gmail.com",
+            user: 'hiei216@gmail.com',
             pass: process.env.GMAIL_NODEMAILER_PASS,
           },
           tls: {
@@ -21,22 +21,22 @@ export const sendEmail = (mjmlTemplate: any, templateData: any) => {
           },
         })
       : nodemailer.createTransport({
-          host: "localhost",
+          host: 'localhost',
           port: 1025,
         });
 
   const mailOptions =
-    ENVIRONMENT === "production"
+    ENVIRONMENT === 'production'
       ? {
-          from: "hiei216@gmail.com",
-          to: "jiri.dvorak@gmx.de",
-          subject: "Sending Email using Node.js",
-          text: "That was easy!",
+          from: 'hiei216@gmail.com',
+          to: 'jiri.dvorak@gmx.de',
+          subject: 'Sending Email using Node.js',
+          text: 'That was easy!',
         }
       : {
-          from: "mailhog@mailhog.com",
-          to: "jiri.dvorak@gmx.com",
-          subject: "Sending Email using Node.js",
+          from: 'mailhog@mailhog.com',
+          to: 'jiri.dvorak@gmx.com',
+          subject: 'Sending Email using Node.js',
           html,
         };
 
@@ -44,7 +44,7 @@ export const sendEmail = (mjmlTemplate: any, templateData: any) => {
     if (error) {
       console.log(error);
     } else {
-      console.log("Email sent: " + info.response);
+      console.log('Email sent: ' + info.response);
     }
   });
 };

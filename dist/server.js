@@ -14,16 +14,16 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 8081;
 app.use(express_1.default.json()); // Add this line to enable JSON parsing in the request body
 app.use((0, cors_1.default)());
-app.use("/bible", bible_1.default);
-app.use("/participant", participant_1.default);
-app.use("/email", email_1.default);
-app.get("/", (req, res) => {
-    res.send("Hello, TypeScript Express!");
+app.use('/bible', bible_1.default);
+app.use('/participant', participant_1.default);
+app.use('/email', email_1.default);
+app.get('/', (req, res) => {
+    res.send('Hello, TypeScript Express!');
 });
 // Add this error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send("Something went wrong");
+    res.status(500).send('Something went wrong');
 });
 mongoose_1.default
     .connect(process.env.MONGO_LOGIN)

@@ -23,7 +23,7 @@ const createVerses = async (req, res, next) => {
             });
         }
         catch (err) {
-            console.log("err", err);
+            console.log('err', err);
         }
     }
     await verse_1.default.create({

@@ -9,10 +9,10 @@ const sendTemplateEmail = (req, res, next) => {
         (0, email_service_1.sendEmail)(test_1.testTemplate, data);
     }
     catch (err) {
-        console.log("err", err);
+        console.log('err', err);
     }
     res.status(201).json({
-        status: "Email was send succesfully!",
+        status: 'Email was send succesfully!',
     });
 };
 exports.sendTemplateEmail = sendTemplateEmail;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -9,6 +9,6 @@ const ParticipantSchema = new Schema({
   email: String,
 });
 
-ParticipantSchema.index({ firstName: 1, lastName: 1, email: 1 }, { unique: true});
+ParticipantSchema.index({ firstName: 1, lastName: 1, email: 1 }, { unique: true });
 
-export default mongoose.model("Participant", ParticipantSchema);
+export default mongoose.model('Participant', ParticipantSchema);

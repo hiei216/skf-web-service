@@ -18,10 +18,10 @@ const getTodaysVerses = async (req, res, next) => {
         foundVerses.push(...verses);
     }
     catch (err) {
-        console.log("err", err);
+        console.log('err', err);
     }
     if (!foundVerses) {
-        res.status(200).write("No data found");
+        res.status(200).write('No data found');
     }
     res.status(201).json({ foundVerses });
 };

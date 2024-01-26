@@ -7,9 +7,9 @@ exports.getFilteredVerses = void 0;
 const verse_1 = __importDefault(require("../../models/verse"));
 const getFilteredVerses = async (req, res, next) => {
     const { firstName, lastName, startDate, endDate } = req.query;
-    const start = new Date(startDate ? startDate.toString() : "");
+    const start = new Date(startDate ? startDate.toString() : '');
     start.setHours(0, 0, 0, 0);
-    const end = new Date(endDate ? endDate.toString() : "");
+    const end = new Date(endDate ? endDate.toString() : '');
     end.setHours(23, 59, 59, 999);
     const foundVerses = [];
     try {
@@ -35,10 +35,10 @@ const getFilteredVerses = async (req, res, next) => {
         foundVerses.push(...resultVerse);
     }
     catch (err) {
-        console.log("err", err);
+        console.log('err', err);
     }
     if (!foundVerses) {
-        res.status(200).write("No data found");
+        res.status(200).write('No data found');
     }
     res.status(201).json({ foundVerses });
 };

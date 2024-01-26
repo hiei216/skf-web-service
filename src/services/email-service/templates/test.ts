@@ -8,4 +8,4 @@ export const testTemplate = `<mjml>
       </mj-column>
     </mj-section>
   </mj-body>
-</mjml>`
+</mjml>`;

@@ -21,5 +21,5 @@ const verseSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     participants: [ParticipantsSchema],
 });
-exports.default = mongoose_1.default.model("Verse", verseSchema);
+exports.default = mongoose_1.default.model('Verse', verseSchema);
 //# sourceMappingURL=verse.js.map
