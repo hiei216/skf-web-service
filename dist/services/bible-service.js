@@ -127,7 +127,7 @@ const getBibleVerseFromBibleSk = async (bibleVerse) => {
         if (verseList.length === 0) {
             return {};
         }
-        for (let i = +verseData.verses.start + 1; i < +verseData.verses.end + 2; i++) {
+        for (let i = +verseData.verses.start - 1; i < +verseData.verses.end; i++) {
             concreteVerses.push(verseList[i].content);
         }
         return {

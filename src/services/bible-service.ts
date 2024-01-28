@@ -143,7 +143,6 @@ type VerseResponse = {
 
 export const getBibleVerseFromBibleSk = async (bibleVerse: string): Promise<VerseResponse | {}> => {
   const verseData = getBibleBookAndChapter(bibleVerse);
-
   try {
     const response = await fetch(
       `https://biblia.sk/api/chapter?translation=ssv&book=${verseData.book}&chapter=${verseData.chapter}`,
@@ -158,7 +157,7 @@ export const getBibleVerseFromBibleSk = async (bibleVerse: string): Promise<Vers
       return {};
     }
 
-    for (let i = +verseData.verses.start + 1; i < +verseData.verses.end + 2; i++) {
+    for (let i = +verseData.verses.start - 1; i < +verseData.verses.end; i++) {
       concreteVerses.push(verseList[i].content);
     }
 
