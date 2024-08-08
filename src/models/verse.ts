@@ -1,24 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const VerseSchema = new Schema({
+const VerseEntrySchema = new Schema({
   bookName: String,
   chapter: String,
   verseNumber: String,
   verses: [String],
-});
-
-const ParticipantsSchema = new Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  verseData: VerseSchema,
+  notes: [String],
 });
 
 const verseSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
-  participants: [ParticipantsSchema],
+  firstName: String,
+  lastName: String,
+  email: String,
+  verseData: VerseEntrySchema,
 });
 
-export default mongoose.model('Verse', verseSchema);
+export default mongoose.model("Verse", verseSchema);
