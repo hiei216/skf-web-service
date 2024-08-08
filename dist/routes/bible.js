@@ -8,6 +8,6 @@ const index_1 = __importDefault(require("../controllers/bible-controllers/index"
 const router = (0, express_1.Router)();
 router.post('/create-verses', index_1.default.createVerses);
 router.get('/get-todays-verses', index_1.default.getTodaysVerses);
-// router.get('/get-filtered-verses', bibleControllers.getFilteredVerses);
+router.get('/get-filtered-verses', index_1.default.getFilteredVerses);
 exports.default = router;
 //# sourceMappingURL=bible.js.map
