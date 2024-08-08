@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/controllers/bible-controllers/index.ts"],"names":[],"mappings":";;AAAA,iDAA8C;AAC9C,yDAAqD;AACrD,+DAA0D;AAE1D,kBAAe;IACb,YAAY,EAAZ,2BAAY;IACZ,eAAe,EAAf,kCAAe;IACf,iBAAiB,EAAjB,uCAAiB;CAClB,CAAC"}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../src/controllers/bible-controllers/index.ts"],"names":[],"mappings":";;AAAA,iDAA8C;AAC9C,wDAAwD;AACxD,6DAA6D;AAE7D,kBAAe;IACb,YAAY,EAAZ,2BAAY;IACZ,mBAAmB;IACnB,qBAAqB;CACtB,CAAC"}

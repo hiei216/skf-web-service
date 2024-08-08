@@ -5,21 +5,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-const VerseSchema = new Schema({
+const VerseEntrySchema = new Schema({
     bookName: String,
     chapter: String,
     verseNumber: String,
     verses: [String],
-});
-const ParticipantsSchema = new Schema({
-    firstName: String,
-    lastName: String,
-    email: String,
-    verseData: VerseSchema,
+    notes: [String],
 });
 const verseSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
-    participants: [ParticipantsSchema],
+    firstName: String,
+    lastName: String,
+    email: String,
+    verseData: VerseEntrySchema,
 });
-exports.default = mongoose_1.default.model('Verse', verseSchema);
+exports.default = mongoose_1.default.model("Verse", verseSchema);
 //# sourceMappingURL=verse.js.map
