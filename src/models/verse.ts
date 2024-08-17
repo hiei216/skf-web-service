@@ -7,7 +7,7 @@ const VerseEntrySchema = new Schema({
   chapter: String,
   verseNumber: String,
   verses: [String],
-  notes: [String],
+  notes: [Object],
 });
 
 const verseSchema = new Schema({
