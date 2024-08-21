@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 import Verse from "../../models/verse";
 
@@ -9,7 +10,11 @@ export const createNote: RequestHandler = async (req, res, next) => {
   try {
     await Verse.findByIdAndUpdate(
       { _id: verseId },
-      { $push: { 'verseData.notes': data } },
+      {
+        $push: {
+          "verseData.notes": { id: uuidv4(), createdAt: timeStamp, ...data },
+        },
+      }
     );
   } catch (err) {
     console.log("err", err);

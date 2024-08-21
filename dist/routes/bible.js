@@ -11,5 +11,6 @@ router.get('/get-verse-notes/:verseId', index_1.default.getVerseNotes);
 router.post('/create-verses', index_1.default.createVerses);
 router.get('/get-todays-verses', index_1.default.getTodaysVerses);
 router.get('/get-filtered-verses', index_1.default.getFilteredVerses);
+router.put('/delete-verse-note/:verseId/note-id/:id', index_1.default.deleteVerseNote);
 exports.default = router;
 //# sourceMappingURL=bible.js.map
