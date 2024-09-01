@@ -1,8 +1,11 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, Request, Response } from "express";
 
-import Participant from '../../models/participant';
+import Participant from "../../models/participant";
 
-export const createParticipant: RequestHandler = async (req, res, next) => {
+export const createParticipant: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   const { firstName, lastName, email } = req.body.participant;
 
   const foundParticipant = await Participant.find({
@@ -15,7 +18,7 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
 
   if (foundParticipant.length > 0) {
     res.status(400).json({
-      message: 'Participant was already found in database',
+      message: "Participant was already found in database",
       data: foundParticipant,
     });
   }
@@ -34,11 +37,11 @@ export const createParticipant: RequestHandler = async (req, res, next) => {
       email,
     });
   } catch (err) {
-    console.log('err', err);
+    console.log("err", err);
   }
 
   res.status(201).json({
-    message: 'Participant was succesfully created',
+    message: "Participant was succesfully created",
     data: createdParticipant,
   });
 };

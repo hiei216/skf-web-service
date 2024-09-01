@@ -1,8 +1,11 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response } from "express";
 
 import Verse from "../../models/verse";
 
-export const getVerseNotes: RequestHandler = async (req, res, next) => {
+export const getVerseNotes: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   const { verseId } = req.params;
 
   const foundNotes: any = [];

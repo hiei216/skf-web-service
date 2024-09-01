@@ -1,8 +1,11 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response } from "express";
 
 import Verse from "../../models/verse";
 
-export const getFilteredVerses: RequestHandler = async (req, res, next) => {
+export const getFilteredVerses: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   const { firstName, lastName, startDate, endDate } = req.query;
 
   const start = new Date(startDate ? startDate.toString() : "");

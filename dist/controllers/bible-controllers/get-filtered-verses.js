@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getFilteredVerses = void 0;
 const verse_1 = __importDefault(require("../../models/verse"));
-const getFilteredVerses = async (req, res, next) => {
+const getFilteredVerses = async (req, res) => {
     const { firstName, lastName, startDate, endDate } = req.query;
     const start = new Date(startDate ? startDate.toString() : "");
     start.setHours(0, 0, 0, 0);

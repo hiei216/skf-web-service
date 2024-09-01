@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createNote = void 0;
 const uuid_1 = require("uuid");
 const verse_1 = __importDefault(require("../../models/verse"));
-const createNote = async (req, res, next) => {
+const createNote = async (req, res) => {
     const { verseId, data } = req.body;
     const timeStamp = new Date();
     try {

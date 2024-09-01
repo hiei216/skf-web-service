@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTodaysVerses = void 0;
 const verse_1 = __importDefault(require("../../models/verse"));
-const getTodaysVerses = async (req, res, next) => {
+const getTodaysVerses = async (req, res) => {
     const startToday = new Date();
     startToday.setHours(0, 0, 0, 0);
     const endToday = new Date();
@@ -18,10 +18,10 @@ const getTodaysVerses = async (req, res, next) => {
         foundVerses.push(...verses);
     }
     catch (err) {
-        console.log('err', err);
+        console.log("err", err);
     }
     if (!foundVerses) {
-        res.status(200).write('No data found');
+        res.status(200).write("No data found");
     }
     res.status(201).json({ foundVerses });
 };

@@ -8,7 +8,7 @@ const verse_1 = __importDefault(require("../../models/verse"));
 const bible_service_1 = require("../../services/bible-service");
 const example_verses_service_1 = require("../../services/example-verses-service");
 const random_number_service_1 = require("../../services/random-number-service");
-const createVerses = async (req, res, next) => {
+const createVerses = async (req, res) => {
     const participants = req.body.participants;
     const readyParticipants = [];
     const timeStamp = new Date();

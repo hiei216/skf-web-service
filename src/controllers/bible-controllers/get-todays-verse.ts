@@ -1,8 +1,11 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, Request, Response } from "express";
 
-import Verse from '../../models/verse';
+import Verse from "../../models/verse";
 
-export const getTodaysVerses: RequestHandler = async (req, res, next) => {
+export const getTodaysVerses: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   const startToday = new Date();
   startToday.setHours(0, 0, 0, 0);
   const endToday = new Date();
@@ -16,11 +19,11 @@ export const getTodaysVerses: RequestHandler = async (req, res, next) => {
     });
     foundVerses.push(...verses);
   } catch (err) {
-    console.log('err', err);
+    console.log("err", err);
   }
 
   if (!foundVerses) {
-    res.status(200).write('No data found');
+    res.status(200).write("No data found");
   }
 
   res.status(201).json({ foundVerses });

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createParticipant = void 0;
 const participant_1 = __importDefault(require("../../models/participant"));
-const createParticipant = async (req, res, next) => {
+const createParticipant = async (req, res) => {
     const { firstName, lastName, email } = req.body.participant;
     const foundParticipant = await participant_1.default.find({
         firstName,
@@ -15,7 +15,7 @@ const createParticipant = async (req, res, next) => {
     const createdParticipant = [];
     if (foundParticipant.length > 0) {
         res.status(400).json({
-            message: 'Participant was already found in database',
+            message: "Participant was already found in database",
             data: foundParticipant,
         });
     }
@@ -34,10 +34,10 @@ const createParticipant = async (req, res, next) => {
         });
     }
     catch (err) {
-        console.log('err', err);
+        console.log("err", err);
     }
     res.status(201).json({
-        message: 'Participant was succesfully created',
+        message: "Participant was succesfully created",
         data: createdParticipant,
     });
 };

@@ -1,11 +1,14 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response } from "express";
 
 import Verse from "../../models/verse";
 import { getBibleVerseFromBibleSk } from "../../services/bible-service";
 import { EXAMPLE_VERSES } from "../../services/example-verses-service";
 import { getRandomNumber } from "../../services/random-number-service";
 
-export const createVerses: RequestHandler = async (req, res, next) => {
+export const createVerses: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   const participants = req.body.participants;
   const readyParticipants: any = [];
   const timeStamp = new Date();
