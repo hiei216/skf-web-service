@@ -5,17 +5,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getFilteredVerses = void 0;
 const verse_1 = __importDefault(require("../../models/verse"));
+const moment_timezone_1 = __importDefault(require("moment-timezone"));
 const getFilteredVerses = async (req, res) => {
-    const { firstName, lastName, startDate, endDate } = req.query;
-    const start = new Date(startDate ? startDate.toString() : "");
-    start.setHours(0, 0, 0, 0);
-    const end = new Date(endDate ? endDate.toString() : "");
-    end.setHours(23, 59, 59, 999);
+    const { firstName, lastName, dateFrom, dateTo } = req.query;
+    const dateQuery = {};
+    if (dateFrom) {
+        const start = moment_timezone_1.default.tz(dateFrom, "Europe/Berlin").startOf("day").toDate();
+        dateQuery.createdAt = { $gte: start };
+    }
+    if (dateTo) {
+        const end = moment_timezone_1.default.tz(dateTo, "Europe/Berlin").endOf("day").toDate();
+        if (dateQuery.createdAt) {
+            dateQuery.createdAt.$lte = end;
+        }
+        else {
+            dateQuery.createdAt = { $lte: end };
+        }
+    }
     const foundVerses = [];
     try {
         const verses = await verse_1.default.find({
-            ...(startDate ? { createdAt: { $gt: start } } : {}),
-            ...(endDate ? { createdAt: { $lt: end } } : {}),
+            ...dateQuery,
             ...(lastName ? { lastName } : {}),
             ...(firstName ? { firstName } : {}),
         });

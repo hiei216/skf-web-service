@@ -12,8 +12,6 @@ const mjml_1 = __importDefault(require("mjml"));
 const ENVIRONMENT = process.env.NODE_ENV || "localhost";
 const sendEmail = (template, templateData) => {
     const mjmlFilePath = path_1.default.join(`${__dirname}\\templates\\`, template);
-    console.log("mjmlFilePath", mjmlFilePath);
-    console.log("ENVIRONMENT", ENVIRONMENT);
     const transporter = ENVIRONMENT === "production"
         ? nodemailer_1.default.createTransport({
             service: "gmail",
@@ -43,7 +41,6 @@ const sendEmail = (template, templateData) => {
             console.error("MJML conversion errors:", errors);
             return;
         }
-        fs_1.default.writeFileSync(`${mjmlTemplate.slice(0, -3)}-preview.html`, html);
         const mailOptions = ENVIRONMENT === "production"
             ? {
                 from: "hiei216@gmail.com",

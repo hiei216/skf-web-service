@@ -1,24 +1,36 @@
 import { RequestHandler, Request, Response } from "express";
 
 import Verse from "../../models/verse";
+import moment from "moment-timezone";
 
 export const getFilteredVerses: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { firstName, lastName, startDate, endDate } = req.query;
+  const { firstName, lastName, dateFrom, dateTo } = req.query;
 
-  const start = new Date(startDate ? startDate.toString() : "");
-  start.setHours(0, 0, 0, 0);
-  const end = new Date(endDate ? endDate.toString() : "");
-  end.setHours(23, 59, 59, 999);
+  const dateQuery: any = {};
+
+  if (dateFrom) {
+    const start = moment.tz(dateFrom, "Europe/Berlin").startOf("day").toDate();
+    dateQuery.createdAt = { $gte: start };
+  }
+
+  if (dateTo) {
+    const end = moment.tz(dateTo, "Europe/Berlin").endOf("day").toDate();
+
+    if (dateQuery.createdAt) {
+      dateQuery.createdAt.$lte = end;
+    } else {
+      dateQuery.createdAt = { $lte: end };
+    }
+  }
 
   const foundVerses: any = [];
 
   try {
     const verses = await Verse.find({
-      ...(startDate ? { createdAt: { $gt: start } } : {}),
-      ...(endDate ? { createdAt: { $lt: end } } : {}),
+      ...dateQuery,
       ...(lastName ? { lastName } : {}),
       ...(firstName ? { firstName } : {}),
     });

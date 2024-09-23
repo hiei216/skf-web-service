@@ -19,9 +19,9 @@ app.use("/bible", bible_1.default);
 app.use("/participant", participant_1.default);
 app.use("/email", email_1.default);
 app.use("/login", login_1.default);
-// app.get("/", (req: Request, res: Response) => {
-//   res.send("Hello, TypeScript Express!");
-// });
+app.get("/", (req, res) => {
+    res.send("Hello, TypeScript Express!");
+});
 // Add this error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
