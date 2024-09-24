@@ -1,8 +1,3 @@
-// const getEnglishBibleVerseAbbreviationForBibleApi = {
-//   'Hebr': 'HEB',
-//   'Rim': 'ROM',
-// };
-
 const getBibleVerseAbbreviation: Record<string, string> = {
   Gn: 'gn',
   Ex: 'ex',
@@ -19,8 +14,8 @@ const getBibleVerseAbbreviation: Record<string, string> = {
   ['1Krn']: '1krn',
   ['2Krn']: '2krn',
   Ezd: 'ezd',
-  Neh: 'neh', // not sure
-  Tob: 'tob', // not sure
+  Neh: 'neh', 
+  Tob: 'tob',
   Jdt: 'jdt',
   Est: 'est',
   Jób: 'job',
@@ -79,40 +74,13 @@ const getBibleVerseAbbreviation: Record<string, string> = {
   Zj: 'zj',
 };
 
-// const url: string =
-//   "https://api.scripture.api.bible/v1/bibles/c61908161b077c4c-01/verses/";
-// interface IAPIOptions {
-//   method: string;
-//   headers: {
-//     "api-key": string;
-//   };
-// }
-
 interface Options {
   method: string;
 }
-// const options: IAPIOptions = {
-//   method: "GET",
-//   headers: {
-//     "api-key": process.env.BIBLE_API_KEY,
-//   },
-// };
 
 const options: Options = {
   method: 'GET',
 };
-
-// export const getBibleVerseFromBibleApi = async (bibleVerse: string) => {
-//   try {
-//     const response = await fetch(`${url}${bibleVerse}`, options);
-
-//     const data = await response.json();
-//     return data ?? {};
-//   } catch (error) {
-//     console.error("Error:", error);
-//     return {};
-//   }
-// };
 
 const getBibleBookAndChapter = (bibleVerse: string) => {
   const indexOfWhitespace = bibleVerse.indexOf(' ');
