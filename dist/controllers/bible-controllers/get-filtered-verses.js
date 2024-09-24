@@ -4,17 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getFilteredVerses = void 0;
-const verse_1 = __importDefault(require("../../models/verse"));
 const moment_timezone_1 = __importDefault(require("moment-timezone"));
+const verse_1 = __importDefault(require("../../models/verse"));
 const getFilteredVerses = async (req, res) => {
-    const { firstName, lastName, dateFrom, dateTo } = req.query;
+    const { firstName, lastName, startDate, endDate } = req.query;
     const dateQuery = {};
-    if (dateFrom) {
-        const start = moment_timezone_1.default.tz(dateFrom, "Europe/Berlin").startOf("day").toDate();
+    if (startDate) {
+        const start = moment_timezone_1.default.tz(startDate, "Europe/Berlin").startOf("day").toDate();
         dateQuery.createdAt = { $gte: start };
     }
-    if (dateTo) {
-        const end = moment_timezone_1.default.tz(dateTo, "Europe/Berlin").endOf("day").toDate();
+    if (endDate) {
+        const end = moment_timezone_1.default.tz(endDate, "Europe/Berlin").endOf("day").toDate();
         if (dateQuery.createdAt) {
             dateQuery.createdAt.$lte = end;
         }

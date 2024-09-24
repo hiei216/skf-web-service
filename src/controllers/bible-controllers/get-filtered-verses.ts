@@ -1,23 +1,23 @@
 import { RequestHandler, Request, Response } from "express";
+import moment from "moment-timezone";
 
 import Verse from "../../models/verse";
-import moment from "moment-timezone";
 
 export const getFilteredVerses: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { firstName, lastName, dateFrom, dateTo } = req.query;
+  const { firstName, lastName, startDate, endDate } = req.query;
 
   const dateQuery: any = {};
 
-  if (dateFrom) {
-    const start = moment.tz(dateFrom, "Europe/Berlin").startOf("day").toDate();
+  if (startDate) {
+    const start = moment.tz(startDate, "Europe/Berlin").startOf("day").toDate();
     dateQuery.createdAt = { $gte: start };
   }
 
-  if (dateTo) {
-    const end = moment.tz(dateTo, "Europe/Berlin").endOf("day").toDate();
+  if (endDate) {
+    const end = moment.tz(endDate, "Europe/Berlin").endOf("day").toDate();
 
     if (dateQuery.createdAt) {
       dateQuery.createdAt.$lte = end;
